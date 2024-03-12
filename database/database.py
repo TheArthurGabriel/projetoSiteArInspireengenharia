@@ -4,5 +4,4 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# db = SqliteDatabase('laudos.db')
-db = PostgresqlDatabase('postgresql://postgres:jVprGyEDnUEaZDqszKoUCCnvQJfSgJDl@postgres.railway.internal:5432/railway')
+db = PostgresqlDatabase('postgresql://ajxnzfay:hcCy9Gm6VkTGkL5-F3O65WW_4UQ159ie@kesavan.db.elephantsql.com/ajxnzfay')
