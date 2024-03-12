@@ -6,8 +6,13 @@ data_route = Blueprint("data", __name__)
 @data_route.route('/show', methods=['post'])
 def show_data():
     numero_chamado = request.form['numero']
-    try:
-        laudo = Laudo.get(Laudo.codigo == numero_chamado)
-        return render_template('laudo.html', data=laudo)
-    except:
-        return render_template('index.html', error=True)
+    
+    laudos = Laudo.select().where(Laudo.codigo == numero_chamado)
+    if len(laudos) > 0:
+        return render_template('laudo.html', data=laudos)
+    else:
+        return render_template('homepage.html', error=True)
+
+        
+    
+    

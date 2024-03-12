@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 import random
 from database.models.laudo import Laudo
+from datetime import datetime
 
 avaliate_route = Blueprint("avaliate", __name__)
 
@@ -13,6 +14,10 @@ def form_laudo():
 def generate_laudo():
     data = request.form
     
+    date_str = data['date']
+    date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+    data_formatada = date_obj.strftime('%d/%m/%Y')
+    
     def gerarId():
         new_id = ''.join(random.choices('0123456789', k=5))
         try:
@@ -20,13 +25,16 @@ def generate_laudo():
             return gerarId()
         except:
             return new_id
-        
-    codigoLaudo = gerarId()
+    
+    if data['codigo'] == '':
+        codigoLaudo = gerarId()
+    else:
+        codigoLaudo = data['codigo']
     
     new_laudo = Laudo.create(
         codigo=codigoLaudo, 
         tecnico=data['tecnico'], 
-        date=data['date'], 
+        date=data_formatada, 
         tipo=data['tipo'], 
         descricao=data['descricao']
     )  

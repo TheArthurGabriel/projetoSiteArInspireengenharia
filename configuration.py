@@ -2,6 +2,7 @@ from routes.show_data import data_route
 from routes.avaliate import avaliate_route
 from database.database import db
 from database.models.laudo import Laudo
+from database.models.users import Users
 
 def configure_all(app):
     configure_routes(app)
@@ -14,4 +15,4 @@ def configure_routes(app):
 def configure_db():
     db.connect()
     
-    db.create_tables([Laudo])
+    db.create_tables([Laudo, Users])

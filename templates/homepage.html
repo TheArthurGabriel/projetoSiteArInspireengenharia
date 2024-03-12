@@ -13,9 +13,16 @@
   </head>
 
   <body class="bg-dark">
+
     <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">INSPIRE CONSTRUÇÃO E REFORMA</a>
+        <a class="navbar-brand">INSPIRE ENGENHARIA</a>
+        {% if 'username' in session %}
+        <a type="button" class="btn btn-primary m-3" href="{{url_for('avaliate.form_laudo')}}">  GERAR LAUDO </a>
+        {% else %}
+        <a type="button" class="btn btn-primary m-3" href="{{url_for('login_page')}}">  LOGIN (EQUIPE) </a>
+        {% endif %}
+
       </div>
     </nav>
 
@@ -42,8 +49,6 @@
         </div>
         <button type="submit" class="btn btn-primary">PROCURAR</button>
       </form>
-
-      <a type="button" class="btn btn-primary m-3" href="{{url_for('avaliate.form_laudo')}}"> RETORNAR </a>
 
     </main>
 

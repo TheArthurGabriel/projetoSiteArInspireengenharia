@@ -21,9 +21,11 @@
     </nav>
 
     <main
-      class="d-flex justify-content-center p-3 align-items-center w-100 flex-column" style="height: 90vh;"
-    >           
+      class="d-flex justify-content-center p-3 align-items-center w-100 flex-column"
+    >   <div class="fs-4 text-white text-center m-2"> LAUDOS ORGANIZADOS POR ONDEM DO MAIS RECENTES </div>
+        {% for laudo in data %}    
         <div class="text-success w-100 fs-6">
+            <div class="text-center text-white fs-2"> ------------ </div>
             <table class="table">
                 <thead>
                   <tr>
@@ -32,7 +34,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{data.tecnico}}</td>
+                    <td>{{laudo.tecnico}}</td>
                   </tr>
                 </tbody>
             </table>
@@ -45,7 +47,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{data.date}}</td>
+                    <td>{{laudo.date}}</td>
                   </tr>
                 </tbody>
             </table>
@@ -58,7 +60,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td> {{data.tipo}} </td>
+                    <td> {{laudo.tipo}} </td>
                   </tr>
                 </tbody>
             </table>
@@ -71,12 +73,14 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td> {{data.descricao}} </td>
+                    <td> {{laudo.descricao}} </td>
                   </tr>
                 </tbody>
             </table>
 
         </div>
+
+        {% endfor %}
 
         <a type="button" class="btn btn-primary" href="/"> RETORNAR </a>
 
