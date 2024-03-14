@@ -1,0 +1,79 @@
+<div class="text-success w-100 fs-6">
+    <div class="text-center text-white fs-2"> ------------ </div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"> NOME DO TÉCNICO </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{laudo.tecnico}}</td>
+          </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"> DATA DA MANUTENÇÃO </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{laudo.date}}</td>
+          </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"> TIPO DE SERVIÇO </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> {{laudo.tipo}} </td>
+          </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"> LAÚDO TÉCNICO </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> {{laudo.descricao}} </td>
+          </tr>
+        </tbody>
+    </table>
+
+    {% if 'username' in session %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"> AÇÕES DE  ADMINISTRADOR  </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> 
+            <button type="button" class="btn btn-warning"> EDITAR </button>
+
+              
+            <button class="btn btn-danger" 
+            c-delete="{{ url_for('data.delete', id=laudo.id)}}"
+            c-remove-closest="div"> 
+                Deletar 
+            </button>
+            </td>    
+          </tr>
+        </tbody>
+      </table>
+    {% endif %}
+
+</div>

@@ -18,9 +18,9 @@
       <div class="container-fluid">
         <a class="navbar-brand">INSPIRE ENGENHARIA</a>
         {% if 'username' in session %}
-        <a type="button" class="btn btn-primary m-3" href="{{url_for('avaliate.form_laudo')}}">  GERAR LAUDO </a>
+        <a type="button" class="btn btn-primary m-2" href="{{url_for('avaliate.form_laudo')}}">  GERAR LAUDO </a>
         {% else %}
-        <a type="button" class="btn btn-primary m-3" href="{{url_for('login_page')}}">  LOGIN (EQUIPE) </a>
+        <a type="button" class="btn btn-primary m-2" href="{{url_for('login_page')}}">  LOGIN (EQUIPE) </a>
         {% endif %}
 
       </div>
@@ -57,5 +57,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    
   </body>
 </html>
