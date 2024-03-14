@@ -12,11 +12,7 @@ def form_laudo():
 
 @avaliate_route.route('/laudo_save', methods=['post'])
 def generate_laudo():
-    data = request.form
-    
-    date_str = data['date']
-    date_obj = datetime.strptime(date_str, '%Y-%m-%d')
-    data_formatada = date_obj.strftime('%d/%m/%Y')
+    data = request.form   
     
     def gerarId():
         new_id = ''.join(random.choices('0123456789', k=5))
@@ -30,11 +26,13 @@ def generate_laudo():
         codigoLaudo = gerarId()
     else:
         codigoLaudo = data['codigo']
+        
+    date_format = datetime.strptime(data['date'], '%Y-%m-%d')
     
     new_laudo = Laudo.create(
         codigo=codigoLaudo, 
         tecnico=data['tecnico'], 
-        date=data_formatada, 
+        date=date_format, 
         tipo=data['tipo'], 
         descricao=data['descricao']
     )  
