@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 import random
 from database.models.laudo import Laudo
 from datetime import datetime
+from database.database import db
 
 avaliate_route = Blueprint("avaliate", __name__)
 
@@ -12,6 +13,7 @@ def form_laudo():
 
 @avaliate_route.route('/laudo_save', methods=['post'])
 def generate_laudo():
+    db.connect()
     data = request.form   
     
     def gerarId():
@@ -36,5 +38,6 @@ def generate_laudo():
         tipo=data['tipo'], 
         descricao=data['descricao']
     )  
-      
+
+    db.close()
     return render_template('exibirCodigo.html', codigoLaudo=codigoLaudo)    
