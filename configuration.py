@@ -14,5 +14,5 @@ def configure_routes(app):
 
 def configure_db():
     db.connect()
-    
     db.create_tables([Laudo, Users])
+    db.close()
