@@ -19,6 +19,7 @@
         <a class="navbar-brand">INSPIRE ENGENHARIA</a>
         {% if 'username' in session %}
         <a type="button" class="btn btn-primary m-2" href="{{url_for('avaliate.form_laudo')}}">  GERAR LAUDO </a>
+        <a type="button" class="btn btn-primary m-2" href="{{url_for('avaliate.download_file')}}">  GERAR RELATORIO </a>
         {% else %}
         <a type="button" class="btn btn-primary m-2" href="{{url_for('login_page')}}">  LOGIN (EQUIPE) </a>
         {% endif %}
