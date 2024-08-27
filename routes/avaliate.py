@@ -5,6 +5,8 @@ from datetime import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
 from database.database import db
 
 avaliate_route = Blueprint("avaliate", __name__)
@@ -14,25 +16,26 @@ avaliate_route = Blueprint("avaliate", __name__)
 def download_file():
     laudos = Laudo.select()
     buffer = BytesIO()
-    pdf = canvas.Canvas(buffer, pagesize=letter)
-    width, height = letter
-    
-    # Título do relatório
-    pdf.drawString(50, height - 100, "Relatório de Laudos")
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+    story = []
+    styles = getSampleStyleSheet()
 
-    y_position = height - 150  # Posição inicial para os dados
+    # Título do relatório
+    title = Paragraph("Relatório de Laudos", styles['Title'])
+    story.append(title)
+    story.append(Paragraph("<br/><br/>", styles['Normal']))  # Espaço entre o título e o conteúdo
+
     for laudo in laudos:
-        pdf.drawString(50, y_position, f"Código: {laudo.codigo}")
-        y_position -= 20
-        pdf.drawString(50, y_position, f"Técnico: {laudo.tecnico}")
-        y_position -= 20
-        pdf.drawString(50, y_position, f"Data de Execução: {laudo.date}")
-        y_position -= 20
-        pdf.drawString(50, y_position, f"Descrição: {laudo.descricao}")
-        y_position -= 40  # Espaço de três linhas antes do próximo laudo
+        content = [
+            Paragraph(f"Código: {laudo.codigo}", styles['Normal']),
+            Paragraph(f"Técnico: {laudo.tecnico}", styles['Normal']),
+            Paragraph(f"Data de Execução: {laudo.date}", styles['Normal']),
+            Paragraph(f"Descrição: {laudo.descricao}", styles['Normal']),
+            Paragraph("<br/><br/>", styles['Normal'])  # Espaço entre laudos
+        ]
+        story.extend(content)
     
-    pdf.showPage()
-    pdf.save()
+    doc.build(story)
     
     buffer.seek(0)
     
