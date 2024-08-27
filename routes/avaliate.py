@@ -1,15 +1,38 @@
-from flask import Blueprint, render_template, request, send_from_directory
+from flask import Blueprint, render_template, request, send_file
 import random
 from database.models.laudo import Laudo
 from datetime import datetime
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from io import BytesIO
 from database.database import db
 
 avaliate_route = Blueprint("avaliate", __name__)
 
+
 @avaliate_route.route('/download')
 def download_file():
-    return send_from_directory(directory='static', path='modelo.pdf', as_attachment=True)
+    laudos = Laudo.select()
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
     
+    pdf.drawString(100, height - 100, "Relatório de Laudos")
+    y_position = height - 150  # Posição inicial para os dados
+    for laudo in laudos:
+        pdf.drawString(100, y_position, f"Código: {laudo.codigo}")
+        pdf.drawString(200, y_position, f"Técnico: {laudo.tecnico}")
+        pdf.drawString(300, y_position, f"Data de Execução: {laudo.date}")
+        pdf.drawString(400, y_position, f"Descrição: {laudo.descricao}")
+        y_position -= 20  # Move para baixo para o próximo usuário
+    
+    pdf.showPage()
+    pdf.save()
+    
+    buffer.seek(0)
+    
+    return send_file(buffer, as_attachment=True, download_name="usuarios.pdf", mimetype='application/pdf')
+
 @avaliate_route.route('/laudo_form')
 def form_laudo():
     return render_template('form.html')
