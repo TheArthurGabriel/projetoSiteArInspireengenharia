@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_from_directory
 import random
 from database.models.laudo import Laudo
 from datetime import datetime
