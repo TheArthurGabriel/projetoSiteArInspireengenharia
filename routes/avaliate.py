@@ -10,21 +10,25 @@ from database.database import db
 avaliate_route = Blueprint("avaliate", __name__)
 
 
-@avaliate_route.route('/download')
 def download_file():
     laudos = Laudo.select()
     buffer = BytesIO()
     pdf = canvas.Canvas(buffer, pagesize=letter)
     width, height = letter
     
-    pdf.drawString(100, height - 100, "Relatório de Laudos")
+    # Título do relatório
+    pdf.drawString(50, height - 100, "Relatório de Laudos")
+
     y_position = height - 150  # Posição inicial para os dados
     for laudo in laudos:
-        pdf.drawString(100, y_position, f"Código: {laudo.codigo}")
-        pdf.drawString(200, y_position, f"Técnico: {laudo.tecnico}")
-        pdf.drawString(300, y_position, f"Data de Execução: {laudo.date}")
-        pdf.drawString(400, y_position, f"Descrição: {laudo.descricao}")
-        y_position -= 20  # Move para baixo para o próximo usuário
+        pdf.drawString(50, y_position, f"Código: {laudo.codigo}")
+        y_position -= 20
+        pdf.drawString(50, y_position, f"Técnico: {laudo.tecnico}")
+        y_position -= 20
+        pdf.drawString(50, y_position, f"Data de Execução: {laudo.data}")
+        y_position -= 20
+        pdf.drawString(50, y_position, f"Descrição: {laudo.descricao}")
+        y_position -= 40  # Espaço de três linhas antes do próximo laudo
     
     pdf.showPage()
     pdf.save()
