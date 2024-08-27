@@ -6,6 +6,9 @@ from database.database import db
 
 avaliate_route = Blueprint("avaliate", __name__)
 
+@avaliate_route.route('/download')
+def download_file():
+    return send_from_directory(directory='static', filename='modelo.pdf', as_attachment=True)
 
 @avaliate_route.route('/laudo_form')
 def form_laudo():
