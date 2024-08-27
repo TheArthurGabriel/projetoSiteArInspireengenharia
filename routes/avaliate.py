@@ -10,6 +10,7 @@ from database.database import db
 avaliate_route = Blueprint("avaliate", __name__)
 
 
+@avaliate_route.route('/download')
 def download_file():
     laudos = Laudo.select()
     buffer = BytesIO()
