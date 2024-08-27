@@ -26,7 +26,7 @@ def download_file():
         y_position -= 20
         pdf.drawString(50, y_position, f"Técnico: {laudo.tecnico}")
         y_position -= 20
-        pdf.drawString(50, y_position, f"Data de Execução: {laudo.data}")
+        pdf.drawString(50, y_position, f"Data de Execução: {laudo.date}")
         y_position -= 20
         pdf.drawString(50, y_position, f"Descrição: {laudo.descricao}")
         y_position -= 40  # Espaço de três linhas antes do próximo laudo
